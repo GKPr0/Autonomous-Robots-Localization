@@ -5,6 +5,7 @@ import numpy as np
 class Robot:
     def __init__(self):
         self.loc = 0
+        self.move_uncert = 0.1
 
     def move(self):
         self.loc += 1
@@ -19,22 +20,30 @@ class Robot:
 def bayes(PBA, PA, PB):
     # STUDENT CODE START
     # Make this function return the answer to Bayes Rule.
-
+    return PBA * PA / PB
     # STUDENT CODE END
 
 
 def shift_priors(P_loc_i):
     # STUDENT CODE START
     # Shift all probabilities to the right by one.
-
+    for i in range(distance -1 , 1, -1):
+        P_loc_i[i] = P_loc_i[i - 1] * 0.9 + P_loc_i[i - 2]* 0.1
+    P_loc_i[1] = P_loc_i[0] *0 .9
+    P_loc_i[0] = 0
+    
     # STUDENT CODE END
 
 
 def update_loc_probability():
     # STUDENT CODE START
     # Perform Bayes Rule on each location.
-
-    # STUDENT CODE END
+    for i in range(distance):
+        if robot.detect_pole(poles):
+            P_loc_i_posterior[i] = bayes(P_D_given_loc_i[i], P_loc_i_prior[i], P_D)
+        else:
+            P_loc_i_posterior[i] = bayes(P_not_D_given_loc_i[i], P_loc_i_prior[i], P_not_D)
+    # STUDENT CODE EN
 
 
 distance = 40
@@ -63,11 +72,19 @@ P_loc_i_prior = np.zeros(distance)
 
 # STUDENT CODE START
 # Set the prior as if the robot has equal probability to be in each location.
+P_loc_i_prior += 1/distance
 
 # Set probabilities of detecing a pole or not detecting a pole.
+P_D = len(poles)/distance
+P_not_D = 1 - P_D
 
 # Set the probabilities for detecting (or not detecting) a pole for each
 # location i.
+for location in range(len(P_D_given_loc_i)):
+    if location + 1 in poles:
+        P_D_given_loc_i[location] = 1.0
+    else:
+        P_not_D_given_loc_i[location] = 1.0
 
 # STUDENT CODE END
 

@@ -2,10 +2,13 @@ from helpers import plot_poles, plot_measurements
 import matplotlib.pyplot as plt
 import numpy as np
 
+'''
+    Based on robot location and locations of poles calculate distance to each pole
+'''
 
 def distance(location, pole_location):
     ### STUDENT CODE START
-    output = 0
+    output = np.sqrt((location[0] - pole_location[0])**2 + (location[1] - pole_location[1])**2 )
     ### STUDENT CODE END
     return output
 

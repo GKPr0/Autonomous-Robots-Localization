@@ -4,12 +4,19 @@ from scipy.optimize import minimize
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
+'''
+    Based on locations of poles and distance from your position to each of the pole calculate robot´s location.
+    This time you don´t know which measuremnet corespond to which pole
+'''
 
 def distance_difference_squared(guess_location, pole, pole_measurements):
     ### STUDENT CODE START
-    output = 0
+    guess_location_distance = np.sqrt((guess_location[0] - pole[0])**2 + (guess_location[1] - pole[1])**2) 
+
+    output = min([abs(distance - guess_location_distance) for distance in pole_measurements])
+        
     ### STUDENT CODE END
-    return output
+    return output**2
 
 # 1D Example
 # pole = 5

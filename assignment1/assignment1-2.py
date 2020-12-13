@@ -3,10 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 
+'''
+    Based on locations of poles and distance from your position to each of them calculate robot´s location
+'''
 
 def distance_difference_squared(guess_location, pole, pole_measurement):
     ### STUDENT CODE START
-    output = 0
+    guess_location_distance = np.sqrt((guess_location[0] - pole[0])**2 + (guess_location[1] - pole[1])**2)
+    output = guess_location_distance - pole_measurement
     # calc distance between guess location and pole.
     # compare distance vs pole_measurement
     ### STUDENT CODE END

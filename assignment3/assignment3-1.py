@@ -1,7 +1,9 @@
 from sim.plot import plot_simple
 import random as r
 
-
+'''
+    Toy example of 1D particle filter
+'''
 class Robot:
     def __init__(self, pos):
         self.pos = pos
@@ -29,14 +31,15 @@ class Particle(Robot):
     def predict(self):
         # START STUDENT CODE
         # Move the particle the same distance as the robot moves.
-
+        self.move()
         # END STUDENT CODE
 
     def update_belief(self, robot_pole_detected):
         # START STUDENT CODE
         # Set the belief to 0 if the robot detection and the particle detection
         # don't match.
-
+        if self.pole_detected != robot_pole_detected:
+            self.belief = 0 
         # END STUDENT CODE
 
         # Setup Robot Location

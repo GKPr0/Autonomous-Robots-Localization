@@ -3,7 +3,9 @@ from sim.a35 import plot
 import random as r
 import numpy as np
 
-
+''' 
+    Resampling
+'''
 class Robot:
     def __init__(self, pos):
         self.pos = pos
@@ -14,28 +16,30 @@ class Particle(Robot):
     def __init__(self, pos):
         Robot.__init__(self, pos)
         self.weight = 0
-        self.movement_sigma = 1
-        self.move_dist = 4  # Overwrite move distance for this example
+        self.movement_sigma = 2
+        self.move_dist = 3  # Overwrite move distance for this example
         self.color = (0, 0, 1, 1)
 
     def predict(self):
         ### START STUDENT CODE
+        self.pos = np.random.normal(self.pos + self.move_dist, self.movement_sigma)
         ### END STUDENT CODE
 
 def resample_particles(particles):
     ### START STUDENT CODE
     # Please fill this array with the output of the r.choices function.
-    resample = []
+    weights = [part.weight for part in particles]
+    resample = r.choices(population=range(num_particles), weights=weights, k=num_particles)
     print(resample)
     
     # Please fill this array with resampled partciles.
-    resampled_particles = []
+    resampled_particles = [Particle(particles[i].pos) for i in resample]
 
     ### END STUDENT CODE
 
     # Set all resampled particles to a different color.
-    for i in resample:
-        resampled_particles[-1].color = (0, 1, 0, 1)
+    for particle in resampled_particles:
+        particle.color = (0, 1, 0, 1)
 
     # Plot and return resampled particles.
     plot(particles, resampled_particles, resample, distance)

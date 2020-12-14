@@ -4,6 +4,7 @@ import numpy as np
 import random as r
 
 
+
 class Robot:
     def __init__(self, pos):
         self.pos = pos
@@ -14,7 +15,10 @@ class Robot:
     def measure(self, poles):
         ### START STUDENT CODE
         # Set self.pole_dist to the distance to the closest pole.
+        closest = min([ pole - self.pos if (pole - self.pos >= 0) else (self.max_measurement + 1) for pole in poles])
 
+        self.pole_dist = closest if closest <= self.max_measurement  else -100
+    
         ### END STUDENT CODE
 
 class Particle(Robot):

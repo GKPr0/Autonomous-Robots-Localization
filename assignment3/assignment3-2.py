@@ -2,7 +2,9 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 
-
+'''
+    Testing gausina distribution 
+'''
 class Robot:
     def __init__(self, pos):
         self.pos = pos
@@ -21,7 +23,7 @@ class Particle(Robot):
     def predict(self):
         # START STUDENT CODE
         # Predict the robots movement and account for movement uncertainty.
-
+        self.pos += np.random.normal(self.move_dist, self.movement_sigma)
         # END STUDENT CODE
 
 

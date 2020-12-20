@@ -13,7 +13,7 @@ for i in range(num_poles):
     y = r.uniform(0, 100)
     poles += [Pole([x, y, 0])]
 particles = []
-num_particles = 100
+num_particles =  100
 for i in range(num_particles):
     x = r.uniform(0, 100)
     y = r.uniform(0, 100)
